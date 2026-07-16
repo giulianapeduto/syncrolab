@@ -79,6 +79,7 @@ SyncroLab no pretende ser únicamente un software de gestión.
 Su objetivo es convertirse en una plataforma que acompañe el crecimiento de una empresa, integrando en un mismo ecosistema la operación diaria, la información estratégica y la relación con los clientes.
 
 Cada funcionalidad deberá responder a una necesidad real del negocio y aportar valor al usuario.
+
 ---
 
 # Decisiones tomadas
