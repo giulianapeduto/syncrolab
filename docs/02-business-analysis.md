@@ -43,7 +43,7 @@ Actualmente el negocio ofrece productos como:
 - Tortas
 - Budines
 - Pepas
-- Chipas
+- Chipitas
 - Scones de queso
 
 Además, elabora internamente distintos insumos para la producción:
@@ -205,3 +205,12 @@ El análisis realizado demuestra que Dolce Capriccio presenta procesos comunes a
 La existencia de operaciones distribuidas entre diferentes herramientas y procedimientos manuales representa una oportunidad para desarrollar una plataforma que centralice la información y simplifique la gestión diaria.
 
 Este documento constituye la base para la definición de los requerimientos funcionales que serán desarrollados en la siguiente etapa del proyecto.
+
+---
+
+## Decisiones tomadas
+
+- Se utilizará una cafetería/pastelería como caso de estudio inicial.
+- El software será diseñado para poder adaptarse posteriormente a otros rubros.
+- La presencia digital se considera parte integral de la gestión del negocio y no un módulo aislado.
+- La arquitectura será modular para permitir incorporar nuevas funcionalidades sin rediseñar el sistema.
