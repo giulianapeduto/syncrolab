@@ -79,3 +79,13 @@ SyncroLab no pretende ser únicamente un software de gestión.
 Su objetivo es convertirse en una plataforma que acompañe el crecimiento de una empresa, integrando en un mismo ecosistema la operación diaria, la información estratégica y la relación con los clientes.
 
 Cada funcionalidad deberá responder a una necesidad real del negocio y aportar valor al usuario.
+---
+
+# Decisiones tomadas
+
+- Se define a SyncroLab como una plataforma modular orientada a pequeñas y medianas empresas.
+- El software será independiente del rubro, utilizando a Dolce Capriccio como caso de estudio inicial.
+- Se priorizará una arquitectura escalable que permita incorporar nuevos módulos sin afectar la estructura existente.
+- El desarrollo se realizará por etapas, documentando cada decisión antes de comenzar a programar.
+- El proyecto tendrá como objetivo convertirse en un producto real y no únicamente en un ejercicio de aprendizaje.
+- Toda la documentación se mantendrá versionada dentro del repositorio utilizando Markdown.
