@@ -208,7 +208,7 @@ Este documento constituye la base para la definición de los requerimientos func
 
 ---
 
-## Decisiones tomadas
+# Decisiones tomadas
 
 - Se utilizará una cafetería/pastelería como caso de estudio inicial.
 - El software será diseñado para poder adaptarse posteriormente a otros rubros.
