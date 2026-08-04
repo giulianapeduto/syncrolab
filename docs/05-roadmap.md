@@ -1,151 +1,85 @@
-# Hoja de Ruta
+# Doc 05 - Hoja de Ruta (Roadmap)
 
-**Proyecto:** SyncroLab
-
-**Documento:** Hoja de Ruta
-
-**Versión:** 1.0
-
-**Estado:** En planificación
-
-**Última actualización:** Julio 2026
+**Proyecto:** SyncroLab  
+**Versión:** 1.0  
+**Estado:** En planificación  
+**Última actualización:** Agosto 2026  
 
 ---
 
-# 1. Introducción
+### 1. Introducción
+Este documento define la planificación estratégica y el ciclo de vida del desarrollo de SyncroLab.
 
-Este documento define la planificación general del desarrollo de SyncroLab.
-
-Su objetivo es establecer una hoja de ruta clara para organizar el trabajo, priorizar funcionalidades y permitir un crecimiento ordenado del proyecto.
-
-El roadmap no representa fechas exactas, sino el orden lógico en el que se desarrollarán los distintos módulos y funcionalidades.
+El objetivo es establecer un plan de acción secuencial, priorizando el desarrollo de funcionalidades según sus dependencias técnicas y su impacto en el negocio. Este *Roadmap* no opera con fechas límite rígidas, sino con **Fases de Desarrollo Incremental**, asegurando que cada etapa sea funcional, testeable y escalable antes de avanzar a la siguiente.
 
 ---
 
-# 2. Objetivos del Roadmap
-
-La planificación del proyecto busca:
-
-- Organizar el desarrollo por etapas.
-- Priorizar las funcionalidades de mayor valor.
-- Reducir la complejidad del desarrollo.
-- Facilitar futuras ampliaciones.
-- Permitir validar cada módulo antes de continuar.
+### 2. Objetivos del Roadmap
+- **Mitigar riesgos técnicos:** Construir los cimientos de seguridad y arquitectura de datos antes que las interfaces transaccionales.
+- **Enfoque MVP (Producto Mínimo Viable):** Identificar el núcleo transaccional mínimo necesario para que una PyME pueda operar el sistema.
+- **Desarrollo Modular:** Asegurar que las etapas posteriores (integraciones, IA, e-commerce) se acoplen sin romper el núcleo.
 
 ---
 
-# 3. Etapa 1 - Análisis y planificación
-
-Objetivo:
-
-Definir las bases del proyecto antes de comenzar el desarrollo.
-
-Incluye:
-
-- Visión del producto.
-- Análisis del negocio.
-- Requerimientos funcionales.
-- Arquitectura del sistema.
-- Roadmap.
-
-Estado:
-
-En progreso.
+### 3. Fase 1: Análisis y Arquitectura (Current State)
+*Objetivo: Definir las reglas de negocio y el diseño del sistema.*
+- Redacción de la Visión del Producto.
+- Análisis Funcional y de Negocio (Caso de estudio: Cronkie).
+- Definición de Requerimientos y Arquitectura Lógica.
+- Modelado de Dominio (Entidades y relaciones).
 
 ---
 
-# 4. Etapa 2 - Diseño
-
-Objetivo:
-
-Diseñar cada componente del sistema antes de programarlo.
-
-Incluye:
-
-- Diseño de la base de datos.
-- Diseño de la interfaz de usuario.
-- Diseño de APIs.
-- Diseño de módulos.
-- Relaciones entre entidades.
+### 4. Fase 2: Diseño Técnico y UX/UI
+*Objetivo: Estructurar la base de datos y la experiencia del usuario.*
+- Diagramado de la Base de Datos Relacional (DER).
+- Diseño de la API (Endpoints, métodos, payloads).
+- Wireframing y diseño de la Interfaz de Usuario (UI) enfocada en operaciones rápidas (Punto de Venta, Dashboard).
+- Configuración de los repositorios y entornos de desarrollo (CI/CD básicos).
 
 ---
 
-# 5. Etapa 3 - Desarrollo del núcleo del sistema
+### 5. Fase 3: Desarrollo del MVP (Core del Sistema)
+*Objetivo: Construir el núcleo operativo. Sin esta fase completada, el software no es funcional.*
+Esta etapa sigue un orden de dependencias estricto:
 
-Se desarrollarán los módulos principales:
-
-- Productos.
-- Stock.
-- Ventas.
-- Gastos.
-- Clientes.
-- Proveedores.
-- Pedidos.
-
-El objetivo es construir una primera versión funcional de SyncroLab.
+1. **Fundamentos:** Gestión de Usuarios, Autenticación (Login/Tokens) y Roles.
+2. **Catálogos Base:** Gestión de Entidades (Clientes/Proveedores), Productos e Insumos.
+3. **Motor Lógico:** Gestión de Stock Unificado (Ingresos, Egresos, Ajustes).
+4. **Flujo de Dinero:** Gestión de Caja (Apertura/Cierre).
+5. **Transaccionalidad:** Gestión de Ventas (Ingresos) y Gastos/Compras (Egresos).
 
 ---
 
-# 6. Etapa 4 - Funcionalidades avanzadas
-
-Una vez finalizado el núcleo del sistema se incorporarán nuevas funcionalidades:
-
-- Dashboard.
-- Reportes.
-- Gestión de usuarios.
-- Producción.
-- Marketing y presencia digital.
-- Configuración.
+### 6. Fase 4: Funcionalidades Avanzadas (Versión 1.0)
+*Objetivo: Elevar el MVP a un sistema de gestión integral, agregando valor analítico y operativo.*
+- Módulo de Producción (Fórmulas, recetas y deducción de stock).
+- Módulo de Pedidos (Trazabilidad de estados de preparación y entrega).
+- Dashboard Gerencial y Reportería financiera.
+- Módulo de Configuración Global (Impuestos, sucursales, monedas).
 
 ---
 
-# 7. Etapa 5 - Integraciones
-
-En esta etapa se evaluará la incorporación de integraciones con servicios externos.
-
-Posibles integraciones:
-
-- WhatsApp.
-- Plataformas de pago.
-- Servicios de correo electrónico.
-- Inteligencia Artificial.
-- Sistemas contables.
-- Plataformas de comercio electrónico.
+### 7. Fase 5: Capa de Integraciones (Módulos Periféricos)
+*Objetivo: Conectar SyncroLab con el ecosistema digital externo.*
+- Integración fiscal (Facturación Electrónica vía AFIP/ARCA).
+- Integración de mensajería (Notificaciones por WhatsApp/Email).
+- E-commerce y Catálogo Digital.
+- Pasarelas de cobro y terminales de pago.
 
 ---
 
-# 8. Etapa 6 - Optimización
-
-Objetivos:
-
-- Mejorar el rendimiento.
-- Optimizar consultas.
-- Mejorar la experiencia del usuario.
-- Corregir errores.
-- Incorporar mejoras sugeridas por los usuarios.
+### 8. Fase 6: Optimización y Escala
+*Objetivo: Refactorización continua y mejora de métricas.*
+- Optimización de consultas a la base de datos (Indexación).
+- Implementación de caché para el catálogo de productos.
+- Auditorías de seguridad.
+- Incorporación de funcionalidades basadas en IA (Predicción de quiebres de stock, sugerencias de compras).
 
 ---
 
-# 9. Evolución del proyecto
+### Decisiones Estratégicas Tomadas
 
-SyncroLab será desarrollado como un proyecto de evolución continua.
-
-Cada versión incorporará nuevas funcionalidades sin perder la estabilidad del sistema.
-
-La prioridad será construir una plataforma sólida antes de aumentar su complejidad.
-
----
-
-# 10. Conclusión
-
-La hoja de ruta establece una planificación organizada que permitirá desarrollar SyncroLab de forma gradual, manteniendo una visión clara del crecimiento del proyecto y facilitando su evolución a largo plazo.
-
----
-
-# Decisiones tomadas
-
-- El desarrollo será incremental.
-- Se priorizará la calidad antes que la velocidad.
-- Cada etapa deberá finalizar antes de comenzar la siguiente.
-- Las nuevas funcionalidades se incorporarán únicamente cuando el núcleo del sistema sea estable.
-- La planificación podrá ajustarse conforme evolucione el proyecto.
+- **Autenticación Primero:** Se bloquea el desarrollo de cualquier entidad transaccional hasta que el sistema de usuarios y seguridad esté implementado.
+- **MVP Definido:** La Fase 3 marca la frontera entre un sistema en desarrollo y un sistema capaz de ser testeado en el mundo real por el PoC (Cronkie).
+- **Desarrollo Ágil/Incremental:** Ninguna fase pasará a producción si no cuenta con la documentación técnica y las pruebas correspondientes.
