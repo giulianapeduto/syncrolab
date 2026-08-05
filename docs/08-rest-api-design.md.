@@ -1,0 +1,138 @@
+# Doc 08 - Diseño de la API REST
+
+**Proyecto:** SyncroLab  
+**Versión:** 1.0  
+**Estado:** En planificación  
+**Última actualización:** Agosto 2026  
+
+---
+
+## 1. Convenciones Generales de la API
+
+1. **Base URL:** `/api/v1`
+2. **Formato de Intercambio:** `application/json` (tanto para Requests como para Responses).
+3. **Autenticación:** JWT (JSON Web Tokens). Se enviará en el header: `Authorization: Bearer <token>`.
+4. **Paginación:** Los endpoints de listado (`GET`) usarán *query parameters*: `?page=1&limit=20`.
+5. **Soft Delete:** Los métodos `DELETE` no borrarán físicamente en base de datos, sino que cambiarán la bandera `is_active` a `false`.
+
+### 1.1 Códigos de Estado HTTP Estándar
+- `200 OK`: Operación exitosa (Lectura/Actualización).
+- `201 Created`: Recurso creado exitosamente (Alta).
+- `400 Bad Request`: Error de validación (ej. faltan campos obligatorios).
+- `401 Unauthorized`: Token inválido, vencido o no enviado.
+- `403 Forbidden`: El usuario autenticado no tiene permisos para esa acción.
+- `404 Not Found`: Recurso no encontrado.
+- `500 Internal Server Error`: Error del servidor no controlado.
+
+---
+
+## 2. Endpoints Base (Fase 1 - Core Transaccional)
+
+### 2.1 Seguridad y Autenticación
+| Método | Endpoint | Descripción | Body (Payload) |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/auth/login` | Inicia sesión y devuelve JWT | `{ email, password }` |
+| `POST` | `/auth/refresh` | Renueva un JWT por vencer | `{ refresh_token }` |
+| `GET` | `/auth/me` | Devuelve datos y permisos del usuario actual | - |
+
+### 2.2 Catálogo de Productos e Insumos
+| Método | Endpoint | Descripción |
+| :--- | :--- | :--- |
+| `GET` | `/categories/products` | Lista categorías de productos (paginado) |
+| `POST` | `/categories/products` | Crea una nueva categoría |
+| `GET` | `/products` | Lista productos activos |
+| `POST` | `/products` | Crea un producto |
+| `PUT` | `/products/:id` | Modifica datos de un producto (precio, SKU, etc.) |
+| `DELETE` | `/products/:id` | Baja lógica de un producto |
+| `GET` | `/insumos` | Lista insumos activos |
+| `POST` | `/insumos` | Crea un nuevo insumo (materia prima) |
+
+### 2.3 Producción y Recetas
+| Método | Endpoint | Descripción |
+| :--- | :--- | :--- |
+| `GET` | `/recipes/product/:productId`| Obtiene la receta de un producto |
+| `POST` | `/recipes` | Define/actualiza receta (`yield_quantity` e ítems) |
+
+### 2.4 Control de Stock
+| Método | Endpoint | Descripción |
+| :--- | :--- | :--- |
+| `GET` | `/stock/current` | Devuelve el balance actual de stock general |
+| `GET` | `/stock/movements` | Historial de auditoría (entradas y salidas) |
+| `POST` | `/stock/movements` | Registra compra, ajuste manual o merma (desperdicio) |
+
+### 2.5 Operaciones de Caja (Cash Sessions)
+| Método | Endpoint | Descripción |
+| :--- | :--- | :--- |
+| `GET` | `/cash-sessions` | Historial de cajas pasadas (auditoría) |
+| `GET` | `/cash-sessions/current` | Verifica si el usuario logueado tiene turno abierto |
+| `POST` | `/cash-sessions/open` | Abre turno de caja |
+| `POST` | `/cash-sessions/close`| Cierra turno de caja (Arqueo) |
+| `POST` | `/cash-sessions/expenses`| Registra un gasto en efectivo de la caja actual |
+
+### 2.6 Ventas (Sales)
+| Método | Endpoint | Descripción |
+| :--- | :--- | :--- |
+| `GET` | `/sales` | Historial de ventas (reportes y reimpresiones) |
+| `GET` | `/sales/:id` | Detalle específico de un ticket |
+| `POST` | `/sales` | Crea venta. Descuenta stock y suma a caja abierta. |
+
+### 2.7 Clientes y Proveedores (Entidades)
+| Método | Endpoint | Descripción |
+| :--- | :--- | :--- |
+| `GET` | `/customers` | Directorio de clientes |
+| `POST` | `/customers` | Alta de nuevo cliente |
+| `GET` | `/suppliers` | Directorio de proveedores |
+| `POST` | `/suppliers` | Alta de proveedor para gestión de compras |
+
+### 2.8 Reportes y Analytics (Dashboard)
+| Método | Endpoint | Descripción |
+| :--- | :--- | :--- |
+| `GET` | `/reports/dashboard` | KPIs principales (ventas del día, ticket promedio) |
+| `GET` | `/reports/top-products`| Ranking de productos más vendidos por fechas |
+| `GET` | `/reports/profitability`| Reporte de rentabilidad (Ingresos vs Costos de Insumos) |
+
+---
+
+## 3. Ejemplos de Estructuras JSON (Payloads)
+
+### 3.1 Respuesta Estándar
+```json
+{
+  "success": true,
+  "data": { ... },
+  "message": "Operación realizada con éxito",
+  "meta": { "page": 1, "total": 50 }
+}
+```
+
+### 3.2 Request: Registrar una Venta (`POST /sales`)
+```json
+{
+  "customer_id": "uuid-opcional",
+  "payment_method": "CASH",
+  "total_amount": 15500.00,
+  "details": [
+    {
+      "product_id": "uuid-del-producto-1",
+      "quantity": 2,
+      "unit_price": 5000.00
+    }
+  ]
+}
+```
+
+---
+
+## 4. Roadmap Arquitectónico (Evolución a ERP)
+
+La API está diseñada de forma modular. Una vez consolidada la operativa Core (Fase 1), el sistema se expandirá integrando los siguientes módulos sin alterar la base existente:
+
+1. **Módulo de Facturación Electrónica (Invoicing):** 
+   - Endpoint `/api/v1/invoices` conectado a las APIs fiscales gubernamentales.
+   - Vinculación 1:1 con los registros de la tabla `sales`.
+2. **Cuentas Corrientes y Créditos:**
+   - Control de saldos para clientes frecuentes y pagos parciales.
+3. **Módulo de Recursos Humanos:**
+   - Fichaje de empleados, control de turnos, y cálculo de comisiones por ventas.
+4. **Producción Avanzada:**
+   - Trazabilidad por lotes, fechas de caducidad y órdenes de producción (para fábricas).
